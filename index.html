@@ -37,16 +37,16 @@
                 <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
                     <h2 class="text-xl font-bold mb-4">Add New Expense</h2>
                     <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium mb-1">Title</label>
-                        <input type="text" id="title" name="title" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="New Spending Title">
+                        <label for="exTitle" class="block text-sm font-medium mb-1">Title</label>
+                        <input type="text" id="exTitle" name="exTitle" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="New Spending Title">
                     </div>
                     <div class="mb-4">
-                        <label for="amount" class="block text-sm font-medium mb-1">Amount</label>
-                        <input type="number" id="amount" name="amount" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Amount of Spending">
+                        <label for="exAmount" class="block text-sm font-medium mb-1">Amount</label>
+                        <input type="number" id="exAmount" name="exAmount" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Amount of Spending">
                     </div>
                     <div class="mb-4">
-                        <label for="date" class="block text-sm font-medium mb-1">Date</label>
-                        <input type="date" id="date" name="date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label for="exDate" class="block text-sm font-medium mb-1">Date</label>
+                        <input type="date" id="exDate" name="exDate" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="btns flex items-center justify-center">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add Expense</button>
@@ -56,6 +56,31 @@
 
                 </form>
         </section>
+
+                <section class="IncomeForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
+                <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
+                    <h2 class="text-xl font-bold mb-4">Add New Income</h2>
+                    <div class="mb-4">
+                        <label for="inTitle" class="block text-sm font-medium mb-1">Title</label>
+                        <input type="text" id="inTitle" name="inTitle" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="New Income Title">
+                    </div>
+                    <div class="mb-4">
+                        <label for="inAmount" class="block text-sm font-medium mb-1">Amount</label>
+                        <input type="number" id="inAmount" name="inAmount" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Amount of Income">
+                    </div>
+                    <div class="mb-4">
+                        <label for="inDate" class="block text-sm font-medium mb-1">Date</label>
+                        <input type="date" id="inDate" name="inDate" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="btns flex items-center justify-center">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add Income</button>
+                    <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200 ml-2">Clear</button>
+                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 ml-2" id="inCloseForm">Close</button>
+                    </div> 
+
+                </form>
+        </section>
+
         <section class="ExpenseList p-4">
                 <table class="w-full border-collapse">
                     <thead>
@@ -71,10 +96,29 @@
                 </table>
         </section>
 
+
+        <section class="IncomeList p-4 hidden">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b p-2 text-center">Title</th>
+                            <th class="border-b p-2 text-center">Amount</th>
+                            <th class="border-b p-2 text-center">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incomeTableBody">
+                        <!-- Expense items will be dynamically added here -->
+                    </tbody>
+                </table>
+        </section>
+
         
 
     </main>
-    <button  class="fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-gray-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addExpenseBtn">+</button>
+
+    
+    <button  class="addItem fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-gray-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addExpenseBtn">+</button>
+    <button  class="addIcome fixed bottom-4 right-16 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-amber-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addIncomeBtn">+</button>
 
 
     <script src="./script.js"></script>
