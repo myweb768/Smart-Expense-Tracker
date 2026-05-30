@@ -50,6 +50,14 @@ function renderExpenses(){
         <td class="p-2 text-center text-gray-800">${expense.title}</td>
             <td class="p-2 text-center text-red-600 font-semibold">৳${expense.amount}</td>
             <td class="p-2 text-center text-gray-500">${expense.date}</td>
+            <td class="flex items-center justify-center gap-2">
+                                <button class="deleteExpense px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class="editExpense px-4 py-2 my-1  border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
         `;
         expenseTable.appendChild(tr);
     
@@ -77,8 +85,8 @@ formTag.addEventListener("submit", (e)=>{
     expenses.push(newExpense);
     renderExpenses();
     formTag.reset();
-    expenseForm.classList.add("hidden");
-    expenseForm.classList.remove("fixed");
+    // expenseForm.classList.add("hidden");
+    // expenseForm.classList.remove("fixed");
 
 });
 
@@ -99,6 +107,25 @@ inCloseFormBtn.addEventListener("click", () => {
 
 //------------------------------------------------
 
+//JS code to Tab switching between Income and Expense tables
+let incomeBtn = document.getElementById("incomeHistory");
+let expenseBtn = document.getElementById("expenseHistory");
+let incomeTableSection = document.getElementById("incomeTableSection");
+let expenseTableSection = document.getElementById("expenseTableSection"); 
+
+incomeBtn.addEventListener("click", ()=>{
+    incomeTableSection.classList.remove("hidden");
+    expenseTableSection.classList.add("hidden");
+    addIncomeBtn.classList.remove("hidden");
+    addExpenseBtn.classList.add("hidden");
+})
+expenseBtn.addEventListener("click", ()=>{
+    expenseTableSection.classList.remove("hidden");
+    incomeTableSection.classList.add("hidden");
+    addExpenseBtn.classList.remove("hidden");
+    addIncomeBtn.classList.add("hidden");
+});
+
 // JS code to handle the form submission for income
 
 const incomes = [];
@@ -117,6 +144,14 @@ function renderIncomes(){
         <td class="p-2 text-center text-gray-800">${income.title}</td>
             <td class="p-2 text-center text-green-600 font-semibold">৳${income.amount}</td>
             <td class="p-2 text-center text-gray-500">${income.date}</td>
+            <td class="flex items-center justify-center gap-2">
+                                <button class="deleteIncome px-4 py-2 my-1border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                                <button class=" editIncome px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
         `;
         incomeTable.appendChild(tr);
     
@@ -144,7 +179,7 @@ incomeFormTag.addEventListener("submit", (e)=>{
     incomes.push(newIncome);
     renderIncomes();
     incomeFormTag.reset();
-    expenseForm.classList.add("hidden");
-    expenseForm.classList.remove("fixed");
+    // incomeForm.classList.add("hidden");
+    // incomeForm.classList.remove("fixed");
 
 }); 

@@ -20,17 +20,20 @@
     <sidebar></sidebar>
     <main>
         <section class="StatusBox md:grid md:grid-cols-3 gap-4 p-4">
-            <div class="TotalMonth glass-card  border border-gray-600 rounded-md p-4">
+            <div class="TotalMonth flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
                 <span></span>
+                <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button>
             </div>
-            <div class="TotalExpense glass-card border border-gray-600 rounded-md p-4">
+            <div class="TotalExpense flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Expense</h2>
                 <span></span>
+                <button type="button" class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="expenseHistory">Total Expense</button>
             </div>
-            <div class="TotalIncome glass-card border border-gray-600 rounded-md p-4">
+            <div class="TotalIncome flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Income</h2>
                 <span></span>
+                <button type="button" class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="incomeHistory">Total Income</button>
             </div>
         </section>
         <section class="ExpenseForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
@@ -81,13 +84,14 @@
                 </form>
         </section>
 
-        <section class="ExpenseList p-4">
+        <section class="ExpenseList p-4" id="expenseTableSection">
                 <table class="w-full border-collapse">
                     <thead>
                         <tr>
                             <th class="border-b p-2 text-center">Title</th>
                             <th class="border-b p-2 text-center">Amount</th>
                             <th class="border-b p-2 text-center">Date</th>
+                            <th class="border-b p-2 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="expenseTableBody">
@@ -97,13 +101,14 @@
         </section>
 
 
-        <section class="IncomeList p-4 hidden">
+        <section class="IncomeList p-4 hidden" id="incomeTableSection">
                 <table class="w-full border-collapse">
                     <thead>
                         <tr>
-                            <th class="border-b p-2 text-center">Title</th>
+                            <th class="border-b p-2 text-center">Source</th>
                             <th class="border-b p-2 text-center">Amount</th>
                             <th class="border-b p-2 text-center">Date</th>
+                            <th class="border-b p-2 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="incomeTableBody">
@@ -118,7 +123,7 @@
 
     
     <button  class="addItem fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-gray-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addExpenseBtn">+</button>
-    <button  class="addIcome fixed bottom-4 right-16 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-amber-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addIncomeBtn">+</button>
+    <button  class="hidden addIcome fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-amber-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addIncomeBtn">+</button>
 
 
     <script src="./script.js"></script>
