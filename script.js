@@ -14,6 +14,9 @@ addExpenseBtn.addEventListener("click", () => {
 closeFormBtn.addEventListener("click", () => {
         expenseForm.classList.remove("fixed");
         expenseForm.classList.add("hidden");
+        document.querySelector(".btns button[type='submit']").textContent = "Add Expense";
+        editExpenseId = null;
+        formTag.reset();
 });
 
 //------------------------------------------------
@@ -34,12 +37,13 @@ updateClock();
 
 // JS code to handle the form submission
 
-const expenses = [];
+const expenses = localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : [];
 const formTag = document.querySelector(".ExpenseForm form");
 let expenseInput = document.querySelector("#exTitle");
 let amountInput = document.querySelector("#exAmount");
 let dateInput = document.querySelector("#exDate");
 let expenseTable  = document.getElementById("expenseTableBody");
+let editExpenseId = null;
 
 function renderExpenses(){
     expenseTable.innerHTML = "";
@@ -51,10 +55,10 @@ function renderExpenses(){
             <td class="p-2 text-center text-red-600 font-semibold">৳${expense.amount}</td>
             <td class="p-2 text-center text-gray-500">${expense.date}</td>
             <td class="flex items-center justify-center gap-2">
-                                <button class="deleteExpense px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <button class="deleteExpense px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" data-id="${expense.id}">
                                 <i class="fa-regular fa-trash-can"></i>
                                 </button>
-                                <button class="editExpense px-4 py-2 my-1  border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <button class="editExpense px-4 py-2 my-1  border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" data-id="${expense.id}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                             </td>
@@ -63,6 +67,42 @@ function renderExpenses(){
     
     });
 }
+
+expenseTable.addEventListener("click", (e)=>{
+
+    //Edit Expense Handle Logic
+    editBtn = e.target.closest(".editExpense");
+    if(editBtn){
+        const idToEdit = parseInt(editBtn.getAttribute("data-id"));
+        const expenseToEdit = expenses.find(item => item.id === idToEdit);
+        if(expenseToEdit){
+            expenseInput.value = expenseToEdit.title;
+            amountInput.value = expenseToEdit.amount;
+            dateInput.value = expenseToEdit.date;
+            editExpenseId = idToEdit;
+            document.querySelector(".btns button[type='submit']").textContent = "Update Expense";
+            expenseForm.classList.add("fixed");
+            expenseForm.classList.remove("hidden");
+        }          
+
+        return;
+    }
+
+
+    //Delete Expense Handle Logic
+const deleteBtn = e.target.closest(".deleteExpense");
+    if(!deleteBtn) return;
+
+    const idToDelete = parseInt(deleteBtn.getAttribute("data-id"));
+    const index = expenses.findIndex(item => item.id === idToDelete);
+    if (index !== -1) {
+        expenses.splice(index, 1);
+        renderExpenses();
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+    }
+});
+
+// Form Submission Handle Logic
 
 formTag.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -75,20 +115,35 @@ formTag.addEventListener("submit", (e)=>{
         return;
     }
 
+
+    if(editExpenseId === null){
     const newExpense = {
        id: Date.now(),
        title: title,
        amount: amount,
        date: date
     };
-
     expenses.push(newExpense);
+}else{
+    const expenseIndex = expenses.findIndex(item => item.id === editExpenseId);
+    if(expenseIndex !== -1){
+        expenses[expenseIndex].title = title;
+        expenses[expenseIndex].amount = amount;
+        expenses[expenseIndex].date = date;
+    }
+    editExpenseId = null;
+        document.querySelector(".btns button[type='submit']").textContent = "Add Expense";
+        expenseForm.classList.remove("fixed");
+        expenseForm.classList.add("hidden");
+
+}
+    
     renderExpenses();
     formTag.reset();
-    // expenseForm.classList.add("hidden");
-    // expenseForm.classList.remove("fixed");
-
+    localStorage.setItem('expenses', JSON.stringify(expenses));
 });
+
+renderExpenses();
 
 // JS code to handle the Income form visibility
 let addIncomeBtn = document.getElementById("addIncomeBtn");
