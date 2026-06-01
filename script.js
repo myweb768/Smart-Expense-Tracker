@@ -168,27 +168,44 @@ let expenseBtn = document.getElementById("expenseHistory");
 let incomeTableSection = document.getElementById("incomeTableSection");
 let expenseTableSection = document.getElementById("expenseTableSection"); 
 
+const savedTab = localStorage.getItem('activeTab');
+
 incomeBtn.addEventListener("click", ()=>{
     incomeTableSection.classList.remove("hidden");
     expenseTableSection.classList.add("hidden");
     addIncomeBtn.classList.remove("hidden");
     addExpenseBtn.classList.add("hidden");
+    localStorage.setItem('activeTab', 'income');
 })
 expenseBtn.addEventListener("click", ()=>{
     expenseTableSection.classList.remove("hidden");
     incomeTableSection.classList.add("hidden");
     addExpenseBtn.classList.remove("hidden");
     addIncomeBtn.classList.add("hidden");
+    localStorage.setItem('activeTab', 'expense');
 });
+
+if(savedTab === 'income'){incomeBtn.click();}
+else{expenseBtn.click();}
 
 // JS code to handle the form submission for income
 
-const incomes = [];
+const incomes = localStorage.getItem('incomes') ? JSON.parse(localStorage.getItem('incomes')) : [];
 const incomeFormTag = document.querySelector(".IncomeForm form");
+let editIncomeId = null;
 let incomeInput = document.querySelector("#inTitle");
 let incomeAmountInput = document.querySelector("#inAmount");
 let incomeDateInput = document.querySelector("#inDate");
 let incomeTable  = document.getElementById("incomeTableBody");
+let inCloseBtn = document.getElementById("inCloseForm");
+
+inCloseBtn.addEventListener("click", () => {
+        incomeForm.classList.remove("fixed");
+        incomeForm.classList.add("hidden");
+        document.querySelector(".btnsInc button[type='submit']").textContent = "Add Income";
+        editExpenseId = null;
+        incomeFormTag.reset();
+});
 
 function renderIncomes(){
     incomeTable.innerHTML = "";
@@ -200,10 +217,10 @@ function renderIncomes(){
             <td class="p-2 text-center text-green-600 font-semibold">৳${income.amount}</td>
             <td class="p-2 text-center text-gray-500">${income.date}</td>
             <td class="flex items-center justify-center gap-2">
-                                <button class="deleteIncome px-4 py-2 my-1border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <button class="deleteIncome px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-red-500 transition-all duration-300 ease-in-out rounded-xl" data-id="${income.id}">
                                 <i class="fa-regular fa-trash-can"></i>
                                 </button>
-                                <button class=" editIncome px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" >
+                                <button class=" editIncome px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-blue-500 transition-all duration-300 ease-in-out rounded-xl" data-id="${income.id}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                             </td>
@@ -212,6 +229,41 @@ function renderIncomes(){
     
     });
 }
+
+
+incomeTable.addEventListener("click", (e)=>{
+
+    //Edit Income Handle Logic
+    inEditBtn = e.target.closest(".editIncome");
+    if(inEditBtn){
+        const idToEdit = parseInt(inEditBtn.getAttribute("data-id"));
+        const incomeToEdit = incomes.find(item => item.id === idToEdit);
+        if(incomeToEdit){
+            incomeInput.value = incomeToEdit.title;
+            incomeAmountInput.value = incomeToEdit.amount;
+            incomeDateInput.value = incomeToEdit.date;
+            editIncomeId = idToEdit;
+            document.querySelector(".btnsInc button[type='submit']").textContent = "Update Income";
+            incomeForm.classList.add("fixed");
+            incomeForm.classList.remove("hidden");
+        }          
+
+        return;
+    }
+
+
+    //Delete Income Handle Logic
+const deleteBtn = e.target.closest(".deleteIncome");
+    if(!deleteBtn) return;
+
+    const idToDelete = parseInt(deleteBtn.getAttribute("data-id"));
+    const index = incomes.findIndex(item => item.id === idToDelete);
+    if (index !== -1) {
+        incomes.splice(index, 1);
+        renderIncomes();
+        localStorage.setItem('incomes', JSON.stringify(incomes));
+    };
+});
 
 incomeFormTag.addEventListener("submit", (e)=>{
     e.preventDefault();
@@ -224,17 +276,30 @@ incomeFormTag.addEventListener("submit", (e)=>{
         return;
     }
 
+if(editIncomeId === null){
     const newIncome = {
        id: Date.now(),
        title: title,
        amount: amount,
        date: date
     };
-
     incomes.push(newIncome);
+}else{
+    const incomeIndex = incomes.findIndex(item => item.id === editIncomeId);
+    if(incomeIndex !== -1){
+        incomes[incomeIndex].title = title;
+        incomes[incomeIndex].amount = amount;
+        incomes[incomeIndex].date = date;
+    }
+    editIncomeId = null;
+        document.querySelector(".btnsInc button[type='submit']").textContent = "Add Income";
+        incomeForm.classList.remove("fixed");
+        incomeForm.classList.add("hidden");
+}
+    // incomes.push(newIncome);
     renderIncomes();
     incomeFormTag.reset();
-    // incomeForm.classList.add("hidden");
-    // incomeForm.classList.remove("fixed");
+    localStorage.setItem('incomes', JSON.stringify(incomes));
 
 }); 
+renderIncomes();
