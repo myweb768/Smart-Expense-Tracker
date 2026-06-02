@@ -43,7 +43,25 @@ let expenseInput = document.querySelector("#exTitle");
 let amountInput = document.querySelector("#exAmount");
 let dateInput = document.querySelector("#exDate");
 let expenseTable  = document.getElementById("expenseTableBody");
+let thisMonthExpense = document.getElementById("monthExpenseTotal");
 let editExpenseId = null;
+
+const totalExpenses = expenses.reduce((sum, expense)=>{return sum + expense.amount},0);
+console.log(totalExpenses);
+
+
+
+const monthTotlalExpenses = expenses.reduce((sum, expense)=>{
+    const expenseDate = new Date(expense.date);
+    const now = new Date();
+    if(expenseDate.getMonth() === now.getMonth() && expenseDate.getFullYear() === now.getFullYear()){
+        return sum + expense.amount;
+    }
+    return sum;
+},0);
+// console.log(monthTotlalExpenses);
+document.querySelector("#totalExpenseTotal").textContent = `৳${totalExpenses}`;
+thisMonthExpense.textContent = `৳${monthTotlalExpenses}`;
 
 function renderExpenses(){
     expenseTable.innerHTML = "";
@@ -198,6 +216,26 @@ let incomeAmountInput = document.querySelector("#inAmount");
 let incomeDateInput = document.querySelector("#inDate");
 let incomeTable  = document.getElementById("incomeTableBody");
 let inCloseBtn = document.getElementById("inCloseForm");
+
+let thisMonthIncome = document.getElementById("monthIncomeTotal");
+
+const totalIncome = incomes.reduce((sum, income)=>{return sum + income.amount},0);
+console.log(totalIncome);
+
+const monthTotlalIncome = incomes.reduce((sum, income)=>{
+    const incomeDate = new Date(income.date);
+    const now = new Date();
+    if(incomeDate.getMonth() === now.getMonth() && incomeDate.getFullYear() === now.getFullYear()){
+        return sum + income.amount;
+    }
+    return sum;
+},0);
+// console.log(monthTotlalIncome);
+document.querySelector("#totalIncomeTotal").textContent = `৳${totalIncome}`;
+thisMonthIncome.textContent = `৳${monthTotlalIncome}`;
+
+
+
 
 inCloseBtn.addEventListener("click", () => {
         incomeForm.classList.remove("fixed");

@@ -22,17 +22,18 @@
         <section class="StatusBox md:grid md:grid-cols-3 gap-4 p-4">
             <div class="TotalMonth flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
-                <span></span>
-                <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button>
+                 <h2 class="text-md font-serif text-center w-full text-gray-700">Total Expense: <span id="totalExpenseTotal"></span></h2>
+                 <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
+                <!-- <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button> -->
             </div>
             <div class="TotalExpense flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Expense</h2>
-                <span></span>
+                <h2 class="text-md text-center w-full text-gray-700">This Month's Expense: <span id="monthExpenseTotal"></span></h2>
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="expenseHistory">Total Expense</button>
             </div>
             <div class="TotalIncome flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Income</h2>
-                <span></span>
+                <h2 class="text-md text-center w-full text-gray-700">This Month's Income: <span id="monthIncomeTotal"></span></h2>
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="incomeHistory">Total Income</button>
             </div>
         </section>
