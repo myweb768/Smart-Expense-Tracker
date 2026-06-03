@@ -46,22 +46,8 @@ let expenseTable  = document.getElementById("expenseTableBody");
 let thisMonthExpense = document.getElementById("monthExpenseTotal");
 let editExpenseId = null;
 
-const totalExpenses = expenses.reduce((sum, expense)=>{return sum + expense.amount},0);
-console.log(totalExpenses);
 
-
-
-const monthTotlalExpenses = expenses.reduce((sum, expense)=>{
-    const expenseDate = new Date(expense.date);
-    const now = new Date();
-    if(expenseDate.getMonth() === now.getMonth() && expenseDate.getFullYear() === now.getFullYear()){
-        return sum + expense.amount;
-    }
-    return sum;
-},0);
-// console.log(monthTotlalExpenses);
-document.querySelector("#totalExpenseTotal").textContent = `৳${totalExpenses}`;
-thisMonthExpense.textContent = `৳${monthTotlalExpenses}`;
+// Function to render expenses in the table
 
 function renderExpenses(){
     expenseTable.innerHTML = "";
@@ -117,6 +103,7 @@ const deleteBtn = e.target.closest(".deleteExpense");
         expenses.splice(index, 1);
         renderExpenses();
         localStorage.setItem('expenses', JSON.stringify(expenses));
+        updateDashboard()
     }
 });
 
@@ -159,6 +146,7 @@ formTag.addEventListener("submit", (e)=>{
     renderExpenses();
     formTag.reset();
     localStorage.setItem('expenses', JSON.stringify(expenses));
+    updateDashboard()
 });
 
 renderExpenses();
@@ -180,31 +168,51 @@ inCloseFormBtn.addEventListener("click", () => {
 
 //------------------------------------------------
 
-//JS code to Tab switching between Income and Expense tables
+//JS code to Tab switching between Income and Expense and Total Month tables
 let incomeBtn = document.getElementById("incomeHistory");
 let expenseBtn = document.getElementById("expenseHistory");
+let totalMonthBtn = document.getElementById("monthHistory");
+let totalMonthSection = document.querySelector(".TotalMonthHistory");
 let incomeTableSection = document.getElementById("incomeTableSection");
 let expenseTableSection = document.getElementById("expenseTableSection"); 
 
+
 const savedTab = localStorage.getItem('activeTab');
+
+
+totalMonthBtn.addEventListener("click", ()=>{
+    totalMonthSection.classList.remove("hidden");
+    totalMonthSection.classList.add("flex");
+    incomeTableSection.classList.add("hidden");
+    expenseTableSection.classList.add("hidden");
+    localStorage.setItem('activeTab', 'totalMonth');
+
+});
 
 incomeBtn.addEventListener("click", ()=>{
     incomeTableSection.classList.remove("hidden");
     expenseTableSection.classList.add("hidden");
     addIncomeBtn.classList.remove("hidden");
     addExpenseBtn.classList.add("hidden");
+    totalMonthSection.classList.add("hidden");
     localStorage.setItem('activeTab', 'income');
 })
 expenseBtn.addEventListener("click", ()=>{
     expenseTableSection.classList.remove("hidden");
     incomeTableSection.classList.add("hidden");
+    totalMonthSection.classList.add("hidden");
     addExpenseBtn.classList.remove("hidden");
     addIncomeBtn.classList.add("hidden");
     localStorage.setItem('activeTab', 'expense');
 });
 
-if(savedTab === 'income'){incomeBtn.click();}
-else{expenseBtn.click();}
+if (savedTab === 'income') {
+    incomeBtn.click();
+} else if (savedTab === 'totalMonth') {
+    totalMonthBtn.click(); 
+} else {
+    expenseBtn.click(); 
+}
 
 // JS code to handle the form submission for income
 
@@ -219,21 +227,6 @@ let inCloseBtn = document.getElementById("inCloseForm");
 
 let thisMonthIncome = document.getElementById("monthIncomeTotal");
 
-const totalIncome = incomes.reduce((sum, income)=>{return sum + income.amount},0);
-console.log(totalIncome);
-
-const monthTotlalIncome = incomes.reduce((sum, income)=>{
-    const incomeDate = new Date(income.date);
-    const now = new Date();
-    if(incomeDate.getMonth() === now.getMonth() && incomeDate.getFullYear() === now.getFullYear()){
-        return sum + income.amount;
-    }
-    return sum;
-},0);
-// console.log(monthTotlalIncome);
-document.querySelector("#totalIncomeTotal").textContent = `৳${totalIncome}`;
-thisMonthIncome.textContent = `৳${monthTotlalIncome}`;
-
 
 
 
@@ -241,7 +234,7 @@ inCloseBtn.addEventListener("click", () => {
         incomeForm.classList.remove("fixed");
         incomeForm.classList.add("hidden");
         document.querySelector(".btnsInc button[type='submit']").textContent = "Add Income";
-        editExpenseId = null;
+        editIncomeId = null;
         incomeFormTag.reset();
 });
 
@@ -269,8 +262,8 @@ function renderIncomes(){
 }
 
 
+// Event delegation for edit and delete buttons in the income table
 incomeTable.addEventListener("click", (e)=>{
-
     //Edit Income Handle Logic
     inEditBtn = e.target.closest(".editIncome");
     if(inEditBtn){
@@ -300,6 +293,7 @@ const deleteBtn = e.target.closest(".deleteIncome");
         incomes.splice(index, 1);
         renderIncomes();
         localStorage.setItem('incomes', JSON.stringify(incomes));
+        updateDashboard()
     };
 });
 
@@ -338,6 +332,130 @@ if(editIncomeId === null){
     renderIncomes();
     incomeFormTag.reset();
     localStorage.setItem('incomes', JSON.stringify(incomes));
+    updateDashboard()
 
 }); 
 renderIncomes();
+
+//Update the total income and expense in the dashboard
+ function updateDashboard(){
+const totalExpenses = expenses.reduce((sum, expense)=>{return sum + expense.amount},0);
+// console.log(totalExpenses);
+
+const monthTotlalExpenses = expenses.reduce((sum, expense)=>{
+    const expenseDate = new Date(expense.date);
+    const now = new Date();
+    if(expenseDate.getMonth() === now.getMonth() && expenseDate.getFullYear() === now.getFullYear()){
+        return sum + expense.amount;
+    }
+    return sum;
+},0);
+// console.log(monthTotlalExpenses);
+
+document.querySelector("#totalExpenseTotal").textContent = `৳${totalExpenses}`;
+thisMonthExpense.textContent = `৳${monthTotlalExpenses}`;
+
+// Update Income Dashboard
+const totalIncome = incomes.reduce((sum, income)=>{return sum + income.amount},0);
+console.log(totalIncome);
+
+const monthTotlalIncome = incomes.reduce((sum, income)=>{
+    const incomeDate = new Date(income.date);
+    const now = new Date();
+    if(incomeDate.getMonth() === now.getMonth() && incomeDate.getFullYear() === now.getFullYear()){
+        return sum + income.amount;
+    }
+    return sum;
+},0);
+// console.log(monthTotlalIncome);
+document.querySelector("#totalIncomeTotal").textContent = `৳${totalIncome}`;
+thisMonthIncome.textContent = `৳${monthTotlalIncome}`;
+
+
+const netServing = totalIncome - totalExpenses;
+let totalSavingsElement = document.querySelector("#totalSavings");
+totalSavingsElement.textContent = `৳${netServing}`;
+if(netServing < 0){
+    totalSavingsElement.style.color = "red";
+} else{
+    totalSavingsElement.style.color = "green";
+}
+ }
+
+ updateDashboard()
+
+
+// JS Code For Monthtly Report Generation
+
+let totalMonthTableBody = document.getElementById("totalMonthTableBody");
+let totalMonthIncome = document.getElementById("totalMonthIncome");
+
+
+// JS Code For Monthly Report Generation
+function renderMonthlyReport() { 
+    let YearlyCalc = {
+        "January": {income: 0, expense: 0},
+        "February": {income: 0, expense: 0},
+        "March": {income: 0, expense: 0},
+        "April": {income: 0, expense: 0},
+        "May": {income: 0, expense: 0},
+        "June": {income: 0, expense: 0},
+        "July": {income: 0, expense: 0},
+        "August": {income: 0, expense: 0},
+        "September": {income: 0, expense: 0},
+        "October": {income: 0, expense: 0},
+        "November": {income: 0, expense: 0},
+        "December": {income: 0, expense: 0} 
+    };
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    incomes.forEach(income => {
+        if(income.date) {
+            const monthIndex = parseInt(income.date.split("-")[1]) - 1; 
+            const monthName = monthNames[monthIndex];
+            if(YearlyCalc[monthName]){
+                YearlyCalc[monthName].income += income.amount;
+            }
+        }
+    });
+
+    expenses.forEach(expense => {
+        if(expense.date) {
+            const monthIndex = parseInt(expense.date.split("-")[1]) - 1; 
+            const monthName = monthNames[monthIndex];
+            if(YearlyCalc[monthName]){
+                YearlyCalc[monthName].expense += expense.amount;
+            }
+        }
+    }); 
+
+    totalMonthTableBody.innerHTML = "";
+    for (const month in YearlyCalc) {
+        const data = YearlyCalc[month];
+        
+        if (data.income === 0 && data.expense === 0) {
+            continue; 
+        }
+
+        const netSaving = data.income - data.expense;
+        const savingColor = netSaving < 0 ? "text-red-600" : "text-green-600";
+
+        const tr = document.createElement("tr");
+        tr.className = "border-b hover:bg-gray-100 transition duration-150";
+        tr.innerHTML = `
+            <td class="p-2 text-center text-gray-800 font-medium">${month}</td>
+            <td class="p-2 text-center text-green-600 font-semibold">৳${data.income}</td>
+            <td class="p-2 text-center text-red-600 font-semibold">৳${data.expense}</td>
+            <td class="p-2 text-center ${savingColor} font-semibold">৳${netSaving}</td>
+            <td class="p-2 text-center">
+                <button class=" px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-green-500 transition-all duration-300 ease-in-out rounded-xl" data-month="${month}">
+                    <i class="fa-regular fa-circle-question"></i>
+                </button>
+            </td>
+        `;
+        totalMonthTableBody.appendChild(tr);
+    }
+}
+
+renderMonthlyReport();

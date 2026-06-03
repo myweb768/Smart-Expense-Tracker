@@ -22,10 +22,12 @@
         <section class="StatusBox md:grid md:grid-cols-3 gap-4 p-4">
             <div class="TotalMonth flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
+                <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
                  <h2 class="text-md font-serif text-center w-full text-gray-700">Total Expense: <span id="totalExpenseTotal"></span></h2>
-                 <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
-                <!-- <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button> -->
+                 <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Saving: <span id="totalSavings"></span></h2>
+                <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button>
             </div>
+
             <div class="TotalExpense flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Expense</h2>
                 <h2 class="text-md text-center w-full text-gray-700">This Month's Expense: <span id="monthExpenseTotal"></span></h2>
@@ -37,6 +39,8 @@
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="incomeHistory">Total Income</button>
             </div>
         </section>
+
+                <!-- Expense History Modal -->
         <section class="ExpenseForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
                 <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
                     <h2 class="text-xl font-bold mb-4">Add New Expense</h2>
@@ -84,6 +88,24 @@
 
                 </form>
         </section>
+
+          <!-- Total Month History Modal -->
+         <section class="TotalMonthHistory p-4 flex flex-col justify-center items-center">
+            <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b p-2 text-center">Month</th>
+                            <th class="border-b p-2 text-center">Total Income</th>
+                            <th class="border-b p-2 text-center">Total Expense</th>
+                            <th class="border-b p-2 text-center">Net Seving</th>
+                            <th class="border-b p-2 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="totalMonthTableBody">
+                        <!-- Expense items will be dynamically added here -->
+                    </tbody>
+                </table>
+                </section>
 
         <section class="ExpenseList p-4" id="expenseTableSection">
                 <table class="w-full border-collapse">
