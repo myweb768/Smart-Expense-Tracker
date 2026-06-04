@@ -10,30 +10,33 @@
     <title>Smart Expense Tracker</title>
 </head>
 <body>
-    <header class="md:flex items-center justify-around p-4 bg-gray-800 text-white  shadow-md">
-        <h2>Smart Expense Tracker</h2>
-        <div class="clock">
-            <i class="fa-solid fa-calendar-days"></i><span id="myDate"></span>
-            <i class="fa-regular fa-clock"></i><span id="myClock"></span></div>
+    <header class="flex items-center justify-around p-4 bg-gray-800 text-white  shadow-md gap-4">
+        <button class="md:hidden text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div>
+            <h2 class ="hidden md:block" >Smart Expense Tracker</h2> 
+            <h2 class="md:hidden">SET</h2>
+        </div>
+        <div class="clock flex flex-col md:flex-row items-center gap-4">
+           <div><i class="fa-solid fa-calendar-days"></i><span id="myDate"></span> </div> 
+            <div><i class="fa-regular fa-clock"></i> <span id="myClock"></span></div>
+        </div>
         <div class="user">Omar Faruque</div>
     </header>
     <sidebar></sidebar>
     <main>
-        <section class="StatusBox md:grid md:grid-cols-3 gap-4 p-4">
-            <div class="TotalMonth flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
+        <section class="StatusBox z-50 hidden my-auto md:grid md:grid-cols-3 gap-4 p-4" id
+        ="statusSection">
+            <div class="TotalMonth my-4 md:my-auto  flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
-                <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
-                 <h2 class="text-md font-serif text-center w-full text-gray-700">Total Expense: <span id="totalExpenseTotal"></span></h2>
-                 <h2 class="text-md font-serif  text-center w-full text-gray-700">Total Saving: <span id="totalSavings"></span></h2>
+                    <h2 class="text-md text-center w-full text-gray-700">Till Today All Income and Expense</span>   </h2>
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button>
             </div>
-
-            <div class="TotalExpense flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
+            <div class="TotalExpense my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Expense</h2>
                 <h2 class="text-md text-center w-full text-gray-700">This Month's Expense: <span id="monthExpenseTotal"></span></h2>
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="expenseHistory">Total Expense</button>
             </div>
-            <div class="TotalIncome flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
+            <div class="TotalIncome my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Income</h2>
                 <h2 class="text-md text-center w-full text-gray-700">This Month's Income: <span id="monthIncomeTotal"></span></h2>
                 <button type="button" class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="incomeHistory">Total Income</button>
@@ -91,6 +94,12 @@
 
           <!-- Total Month History Modal -->
          <section class="TotalMonthHistory p-4 flex flex-col justify-center items-center">
+                 <div class="TotalCalc md:flex items-center justify-center glass-card border border-gray-600 rounded-md p-4 w-full mb-4">
+                    <h2 class="text-md  font-semibold  text-center w-full text-gray-700">In <span id="CurrentYear">2026</span>:</h2>
+                <h2 class="text-md  font-semibold  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
+                 <h2 class="text-md font-semibold text-center w-full text-gray-700">Total Expense: <span id="totalExpenseTotal"></span></h2>
+                 <h2 class="text-md font-semibold  text-center w-full text-gray-700">Total Saving: <span id="totalSavings"></span></h2>
+            </div>
             <table class="w-full border-collapse">
                     <thead>
                         <tr>
@@ -98,7 +107,7 @@
                             <th class="border-b p-2 text-center">Total Income</th>
                             <th class="border-b p-2 text-center">Total Expense</th>
                             <th class="border-b p-2 text-center">Net Seving</th>
-                            <th class="border-b p-2 text-center">Actions</th>
+                            <th class="border-b p-2 text-center">Details</th>
                         </tr>
                     </thead>
                     <tbody id="totalMonthTableBody">

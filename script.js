@@ -1,5 +1,20 @@
 console.log("Hello World!");
 
+// JS code to handle the mobile menu toggle
+let menuToggle = document.getElementById("menuToggle");
+let sidebar = document.querySelector("#statusSection");
+
+menuToggle.addEventListener("click", () => {
+    sidebar.classList.zIndex = "50";
+    sidebar.style.position = "fixed";
+    sidebar.style.top = "0";
+    sidebar.style.left = "0";
+    sidebar.style.height = "100vh";
+    sidebar.style.width = "100%";
+    sidebar.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+    sidebar.classList.remove("hidden");
+}); 
+
 
 // JS code to handle the form visibility
 let addExpenseBtn = document.getElementById("addExpenseBtn");
@@ -185,7 +200,9 @@ totalMonthBtn.addEventListener("click", ()=>{
     totalMonthSection.classList.add("flex");
     incomeTableSection.classList.add("hidden");
     expenseTableSection.classList.add("hidden");
+    addIncomeBtn.classList.add("hidden");
     localStorage.setItem('activeTab', 'totalMonth');
+    sidebar.classList.add("hidden");
 
 });
 
@@ -196,6 +213,7 @@ incomeBtn.addEventListener("click", ()=>{
     addExpenseBtn.classList.add("hidden");
     totalMonthSection.classList.add("hidden");
     localStorage.setItem('activeTab', 'income');
+    sidebar.classList.add("hidden");
 })
 expenseBtn.addEventListener("click", ()=>{
     expenseTableSection.classList.remove("hidden");
@@ -204,6 +222,7 @@ expenseBtn.addEventListener("click", ()=>{
     addExpenseBtn.classList.remove("hidden");
     addIncomeBtn.classList.add("hidden");
     localStorage.setItem('activeTab', 'expense');
+    sidebar.classList.add("hidden");
 });
 
 if (savedTab === 'income') {
