@@ -478,3 +478,68 @@ function renderMonthlyReport() {
 }
 
 renderMonthlyReport();
+
+
+
+// Event delegation for the details button in the monthly report table
+totalMonthTableBody.addEventListener("click", (e)=>{
+let detailsBtn = e.target.closest("button[data-month]");
+let detailsModal = document.getElementById("detailsSection");
+let detailsList = document.getElementById("detailsTableBody");
+// detailsBtn.(e)=>{
+    const month = detailsBtn.getAttribute("data-month");
+    detailsList.innerHTML = "";
+    let filteredIncomes = [];
+    let filteredExpenses = [];
+
+    if(detailsBtn){
+        const month = detailsBtn.getAttribute("data-month");
+        const monthIndex = new Date(`${month} 1, 2024`).getMonth() + 1; 
+        filteredIncomes = incomes.filter(income => {
+            const incomeMonth = parseInt(income.date.split("-")[1]);
+            return incomeMonth === monthIndex;
+        })
+        .map(income =>{
+            return {...income, type:"income"}
+        });
+
+        filteredExpenses = expenses.filter(expense => {
+            const expenseMonth = parseInt(expense.date.split("-")[1]);
+            return expenseMonth === monthIndex;
+        })
+        .map(expense => {
+            return {...expense, type:"expense"}
+        });
+
+
+    }
+
+    [...filteredIncomes, ...filteredExpenses].forEach(item => {
+        const tr = document.createElement("tr");
+        tr.className = "border-b hover:bg-gray-100 transition duration-150";
+        tr.innerHTML = `
+    <td class="p-2 text-center text-gray-800">${item.date}</td>
+    
+    <td class="p-2 text-center text-green-600 font-semibold">
+        ${item.type === "income" ? `৳${item.amount}` : "-"}
+    </td>
+    
+    <td class="p-2 text-center text-red-600 font-semibold">
+        ${item.type === "expense" ? `৳${item.amount}` : "-"}
+    </td>
+    
+    <td class="p-2 text-center text-gray-700">${item.title}</td>
+`;
+        detailsList.appendChild(tr);
+    });
+    detailsModal.classList.remove("hidden");
+    detailsModal.classList.add("flex");
+
+
+document.getElementById("closeDetails").addEventListener("click", ()=>{
+    detailsModal.classList.add("hidden");
+    detailsModal.classList.remove("flex");
+
+});
+
+});

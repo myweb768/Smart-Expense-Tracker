@@ -149,6 +149,27 @@
                 </table>
         </section>
 
+
+
+        <section class="DetailsSection p-4 hidden w-[80%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card" id="detailsSection">
+            <div class="flex flex-col gap-4 items-center justify-center w-full overflow-y-scroll max-h-[80vh]">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Details for <span id="detailsMonth"></span></h2>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr>
+                        <th class="border-b p-2 text-center">Date</th>
+                        <th class="border-b p-2 text-center">Income</th>
+                        <th class="border-b p-2 text-center">Expense</th>
+                        <th class="border-b p-2 text-center">Title</th>
+                    </tr>
+                </thead>
+                <tbody id="detailsTableBody">
+                    <!-- Details items will be dynamically added here -->
+                </tbody>
+            </table>
+                <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 mt-4" id="closeDetails">Close</button>
+            </div>
+        </section>
         
 
     </main>
