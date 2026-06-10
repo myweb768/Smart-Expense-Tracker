@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,179 +10,237 @@
     <link rel="stylesheet" href="style.css">
     <title>Smart Expense Tracker</title>
 </head>
+
 <body>
     <header class="flex items-center justify-around p-4 bg-gray-800 text-white  shadow-md gap-4">
-        <button class="md:hidden text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+        <button
+            class="md:hidden text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
+            id="menuToggle"><i class="fa-solid fa-bars"></i></button>
         <div>
-            <h2 class ="hidden md:block" >Smart Expense Tracker</h2> 
+            <h2 class="hidden md:block">Smart Expense Tracker</h2>
             <h2 class="md:hidden">SET</h2>
         </div>
         <div class="clock flex flex-col md:flex-row items-center gap-4">
-           <div><i class="fa-solid fa-calendar-days"></i><span id="myDate"></span> </div> 
+            <div><i class="fa-solid fa-calendar-days"></i><span id="myDate"></span> </div>
             <div><i class="fa-regular fa-clock"></i> <span id="myClock"></span></div>
         </div>
         <div class="user">Omar Faruque</div>
     </header>
     <sidebar></sidebar>
     <main>
-        <section class="StatusBox z-50 hidden my-auto md:grid md:grid-cols-3 gap-4 p-4" id
-        ="statusSection">
-            <div class="TotalMonth my-4 md:my-auto  flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
+        <section class="StatusBox z-50 hidden my-auto md:grid md:grid-cols-3 gap-4 p-4" id="statusSection">
+            <div
+                class="TotalMonth my-4 md:my-auto  flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
-                    <h2 class="text-md text-center w-full text-gray-700">Till Today All Income and Expense</span>   </h2>
-                <button type="button" class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="monthHistory">Total Month</button>
+                <h2 class="text-md text-center w-full text-gray-700">Till Today All Income and Expense</span> </h2>
+                <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="monthHistory">Total Month</button>
             </div>
-            <div class="TotalExpense my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
+            <div
+                class="TotalExpense my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Expense</h2>
-                <h2 class="text-md text-center w-full text-gray-700">This Month's Expense: <span id="monthExpenseTotal"></span></h2>
-                <button type="button" class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="expenseHistory">Total Expense</button>
+                <h2 class="text-md text-center w-full text-gray-700">This Month's Expense: <span
+                        id="monthExpenseTotal"></span></h2>
+                <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="expenseHistory">Total Expense</button>
             </div>
-            <div class="TotalIncome my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
+            <div
+                class="TotalIncome my-4 md:my-auto flex flex-col items-center justify-center glass-card border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Income</h2>
-                <h2 class="text-md text-center w-full text-gray-700">This Month's Income: <span id="monthIncomeTotal"></span></h2>
-                <button type="button" class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold" id="incomeHistory">Total Income</button>
+                <h2 class="text-md text-center w-full text-gray-700">This Month's Income: <span
+                        id="monthIncomeTotal"></span></h2>
+                <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="incomeHistory">Total Income</button>
             </div>
         </section>
 
-                <!-- Expense History Modal -->
-        <section class="ExpenseForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
-                <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
-                    <h2 class="text-xl font-bold mb-4">Add New Expense</h2>
-                    <div class="mb-4">
-                        <label for="exTitle" class="block text-sm font-medium mb-1">Title</label>
-                        <input type="text" id="exTitle" name="exTitle" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="New Spending Title">
-                    </div>
-                    <div class="mb-4">
-                        <label for="exAmount" class="block text-sm font-medium mb-1">Amount</label>
-                        <input type="number" id="exAmount" name="exAmount" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Amount of Spending">
-                    </div>
-                    <div class="mb-4">
-                        <label for="exDate" class="block text-sm font-medium mb-1">Date</label>
-                        <input type="date" id="exDate" name="exDate" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="btns flex items-center justify-center">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add Expense</button>
-                    <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200 ml-2">Clear</button>
-                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 ml-2" id="closeForm">Close</button>
-                    </div> 
+        <!-- Expense History Modal -->
+        <section
+            class="ExpenseForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
+            <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
+                <h2 class="text-xl font-bold mb-4">Add New Expense</h2>
+                <div class="mb-4">
+                    <label for="exTitle" class="block text-sm font-medium mb-1">Title</label>
+                    <input type="text" id="exTitle" name="exTitle"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="New Spending Title">
+                </div>
+                <div class="mb-4">
+                    <label for="exAmount" class="block text-sm font-medium mb-1">Amount</label>
+                    <input type="number" id="exAmount" name="exAmount"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Amount of Spending">
+                </div>
+                <div class="mb-4">
+                    <label for="exDate" class="block text-sm font-medium mb-1">Date</label>
+                    <input type="date" id="exDate" name="exDate"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="btns flex items-center justify-center">
+                    <button type="submit"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add
+                        Expense</button>
+                    <button type="reset"
+                        class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200 ml-2">Clear</button>
+                    <button type="button"
+                        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 ml-2"
+                        id="closeForm">Close</button>
+                </div>
 
-                </form>
+            </form>
         </section>
 
-                <section class="IncomeForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
-                <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
-                    <h2 class="text-xl font-bold mb-4">Add New Income</h2>
-                    <div class="mb-4">
-                        <label for="inTitle" class="block text-sm font-medium mb-1">Title</label>
-                        <input type="text" id="inTitle" name="inTitle" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="New Income Title">
-                    </div>
-                    <div class="mb-4">
-                        <label for="inAmount" class="block text-sm font-medium mb-1">Amount</label>
-                        <input type="number" id="inAmount" name="inAmount" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Amount of Income">
-                    </div>
-                    <div class="mb-4">
-                        <label for="inDate" class="block text-sm font-medium mb-1">Date</label>
-                        <input type="date" id="inDate" name="inDate" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="btnsInc flex items-center justify-center">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add Income</button>
-                    <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200 ml-2">Clear</button>
-                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 ml-2" id="inCloseForm">Close</button>
-                    </div> 
+        <section
+            class="IncomeForm hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full p-4 flex flex-col justify-center items-center">
+            <form class="glass-card border border-gray-600 rounded-md p-4 md:w-1/2">
+                <h2 class="text-xl font-bold mb-4">Add New Income</h2>
+                <div class="mb-4">
+                    <label for="inTitle" class="block text-sm font-medium mb-1">Title</label>
+                    <input type="text" id="inTitle" name="inTitle"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="New Income Title">
+                </div>
+                <div class="mb-4">
+                    <label for="inAmount" class="block text-sm font-medium mb-1">Amount</label>
+                    <input type="number" id="inAmount" name="inAmount"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Amount of Income">
+                </div>
+                <div class="mb-4">
+                    <label for="inDate" class="block text-sm font-medium mb-1">Date</label>
+                    <input type="date" id="inDate" name="inDate"
+                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="btnsInc flex items-center justify-center">
+                    <button type="submit"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Add
+                        Income</button>
+                    <button type="reset"
+                        class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200 ml-2">Clear</button>
+                    <button type="button"
+                        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 ml-2"
+                        id="inCloseForm">Close</button>
+                </div>
 
-                </form>
+            </form>
         </section>
 
-          <!-- Total Month History Modal -->
-         <section class="TotalMonthHistory p-4 flex flex-col justify-center items-center">
-                 <div class="TotalCalc md:flex items-center justify-center glass-card border border-gray-600 rounded-md p-4 w-full mb-4">
-                    <h2 class="text-md  font-semibold  text-center w-full text-gray-700">In <span id="CurrentYear">2026</span>:</h2>
-                <h2 class="text-md  font-semibold  text-center w-full text-gray-700">Total Income: <span id="totalIncomeTotal"></span></h2>
-                 <h2 class="text-md font-semibold text-center w-full text-gray-700">Total Expense: <span id="totalExpenseTotal"></span></h2>
-                 <h2 class="text-md font-semibold  text-center w-full text-gray-700">Total Saving: <span id="totalSavings"></span></h2>
+        <!-- Total Month History Modal -->
+        <section class="TotalMonthHistory p-4 flex flex-col justify-center items-center">
+            <div
+                class="TotalCalc md:flex items-center justify-center glass-card border border-gray-600 rounded-md p-4 w-full mb-4">
+                <h2 class="text-md  font-semibold  text-center w-full text-gray-700">In <span
+                        id="CurrentYear">2026</span>:</h2>
+                <h2 class="text-md  font-semibold  text-center w-full text-gray-700">Total Income: <span
+                        id="totalIncomeTotal"></span></h2>
+                <h2 class="text-md font-semibold text-center w-full text-gray-700">Total Expense: <span
+                        id="totalExpenseTotal"></span></h2>
+                <h2 class="text-md font-semibold  text-center w-full text-gray-700">Total Saving: <span
+                        id="totalSavings"></span></h2>
             </div>
             <table class="w-full border-collapse">
-                    <thead>
-                        <tr>
-                            <th class="border-b p-2 text-center">Month</th>
-                            <th class="border-b p-2 text-center">Total Income</th>
-                            <th class="border-b p-2 text-center">Total Expense</th>
-                            <th class="border-b p-2 text-center">Net Seving</th>
-                            <th class="border-b p-2 text-center">Details</th>
-                        </tr>
-                    </thead>
-                    <tbody id="totalMonthTableBody">
-                        <!-- Expense items will be dynamically added here -->
-                    </tbody>
-                </table>
-                </section>
+                <thead>
+                    <tr>
+                        <th class="border-b p-2 text-center">Month</th>
+                        <th class="border-b p-2 text-center">Total Income</th>
+                        <th class="border-b p-2 text-center">Total Expense</th>
+                        <th class="border-b p-2 text-center">Net Seving</th>
+                        <th class="border-b p-2 text-center">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="totalMonthTableBody">
+                    <!-- Expense items will be dynamically added here -->
+                </tbody>
+            </table>
+        </section>
 
         <section class="ExpenseList p-4" id="expenseTableSection">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr>
-                            <th class="border-b p-2 text-center">Title</th>
-                            <th class="border-b p-2 text-center">Amount</th>
-                            <th class="border-b p-2 text-center">Date</th>
-                            <th class="border-b p-2 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="expenseTableBody">
-                        <!-- Expense items will be dynamically added here -->
-                    </tbody>
-                </table>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr>
+                        <th class="border-b p-2 text-center">Title</th>
+                        <th class="border-b p-2 text-center">Amount</th>
+                        <th class="border-b p-2 text-center">Date</th>
+                        <th class="border-b p-2 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTableBody">
+                    <!-- Expense items will be dynamically added here -->
+                </tbody>
+            </table>
         </section>
 
 
         <section class="IncomeList p-4 hidden" id="incomeTableSection">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr>
-                            <th class="border-b p-2 text-center">Source</th>
-                            <th class="border-b p-2 text-center">Amount</th>
-                            <th class="border-b p-2 text-center">Date</th>
-                            <th class="border-b p-2 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="incomeTableBody">
-                        <!-- Expense items will be dynamically added here -->
-                    </tbody>
-                </table>
-        </section>
-
-
-
-        <section class="DetailsSection p-4 hidden w-[80%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card" id="detailsSection">
-            <div class="flex flex-col gap-4 items-center justify-center w-full overflow-y-scroll max-h-[80vh]">
-            <h2 class="text-xl font-semibold mb-4 text-gray-700">Details for <span id="detailsMonth"></span></h2>
             <table class="w-full border-collapse">
                 <thead>
                     <tr>
+                        <th class="border-b p-2 text-center">Source</th>
+                        <th class="border-b p-2 text-center">Amount</th>
                         <th class="border-b p-2 text-center">Date</th>
-                        <th class="border-b p-2 text-center">Income</th>
-                        <th class="border-b p-2 text-center">Expense</th>
-                        <th class="border-b p-2 text-center">Title</th>
+                        <th class="border-b p-2 text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="detailsTableBody">
-                    <!-- Details items will be dynamically added here -->
+                <tbody id="incomeTableBody">
+                    <!-- Expense items will be dynamically added here -->
                 </tbody>
             </table>
-                <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 mt-4" id="closeDetails">Close</button>
+        </section>
+
+
+
+        <section
+            class="DetailsSection p-4 hidden w-[80%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card"
+            id="detailsSection">
+            <div class="flex flex-col gap-4 items-center justify-center w-full overflow-y-scroll max-h-[80vh]">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Details for <span id="detailsMonth"></span></h2>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b p-2 text-center">Date</th>
+                            <th class="border-b p-2 text-center">Income</th>
+                            <th class="border-b p-2 text-center">Expense</th>
+                            <th class="border-b p-2 text-center">Title</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailsTableBody">
+                        <!-- Details items will be dynamically added here -->
+                    </tbody>
+                </table>
+                <button type="button"
+                    class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 mt-4"
+                    id="closeDetails">Close</button>
             </div>
         </section>
-        
+
 
     </main>
 
-    
-    <button  class="addItem fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-gray-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addExpenseBtn">+</button>
-    <button  class="hidden addIcome fixed bottom-4 right-4 p-4 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-amber-700 text-4xl font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out" id="addIncomeBtn">+</button>
+    <div class="calculator">
+
+    </div>
+
+
+    <button
+        class="addItem fixed bottom-4 right-4 p-1 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-gray-700  font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out"
+        id="addExpenseBtn"><i class="fa-solid fa-circle-plus"></i></button>
+    <button
+        class="hidden addIcome fixed bottom-4 right-4 p-1 z-50 h-12 w-12 flex items-center justify-center rounded-full bg-amber-700  font-bold text-white border hover:scale-105 hover:bg-green-500 hover:text-black transition-all duration-300 ease-in-out"
+        id="addIncomeBtn"><i class="fa-solid fa-circle-plus" style="font-size: large;"></i></button>
+
+
+
+
+
 
 
     <script src="./script.js"></script>
     <script src="./Icons/js/all.min.js"></script>
 </body>
+
 </html>
 
 
