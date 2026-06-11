@@ -25,6 +25,10 @@
             <div><i class="fa-regular fa-clock"></i> <span id="myClock"></span></div>
         </div>
         <div class="user">Omar Faruque</div>
+        <button
+            class=" text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
+            id="CalculatorOpen"><i class="fa-solid fa-calculator"></i></button>
+        <div>
     </header>
     <sidebar></sidebar>
     <main>
@@ -219,7 +223,35 @@
 
     </main>
 
-    <div class="calculator">
+    <div
+        class=" calculator hidden top-[50%] translate-y-[-50%] left-[50%] translate-[-50%]  rounded-xl p-2 glass-card flex flex-col items-center justify-center">
+        <input type="" readonly placeholder="0" id="display">
+        <div class="buttons_pads grid grid-cols-4">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteValue()">Del</button>
+            <button onclick="takeValue('%')">%</button>
+            <button onclick="takeValue('/')"><i class="fa-solid fa-divide"></i></button>
+            <button onclick="takeValue('7')">7</button>
+            <button onclick="takeValue('8')">8</button>
+            <button onclick="takeValue('9')">9</button>
+            <button onclick="takeValue('*')"><i class="fa-solid fa-times"></i></button>
+            <button onclick="takeValue('4')">4</button>
+            <button onclick="takeValue('5')">5</button>
+            <button onclick="takeValue('6')">6</button>
+            <button onclick="takeValue('-')">-</button>
+            <button onclick="takeValue('1')">1</button>
+            <button onclick="takeValue('2')">2</button>
+            <button onclick="takeValue('3')">3</button>
+            <button onclick="takeValue('+')">+</button>
+            <button onclick="takeValue('0')">0</button>
+            <button onclick="takeValue('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="shoeSci()">Sci</button>
+        </div>
+
+        <button type="button"
+            class="calCls bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 mt-4"
+            id="CalculatorClose">Close</button>
 
     </div>
 
