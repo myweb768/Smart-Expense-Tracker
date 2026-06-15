@@ -2,18 +2,9 @@ console.log("Hello World!");
 
 // JS code to handle the mobile menu toggle
 
-let menuToggle = document.getElementById("menuToggle");
+// let menuToggle = document.getElementById("menuToggle");
 let sidebar = document.querySelector("#statusSection");
-let otherObj = document.querySelectorAll("#statusSection div h2");
-
-menuToggle.addEventListener("click", () => {
-    sidebar.classList.add("StatusBox")
-    sidebar.classList.remove("hidden")
-    otherObj.forEach((singleH2) => {
-        singleH2.style.display = "none";
-    });
-
-});
+let mobileButton = document.querySelector(".mobileBtns");
 
 // JS code to handle the form visibility
 let addExpenseBtn = document.getElementById("addExpenseBtn");
@@ -232,6 +223,44 @@ if (savedTab === 'income') {
 } else {
     expenseBtn.click(); 
 }
+
+
+//Mobile Responsive Tab Switch
+let mbincomeBtn = document.getElementById("mbincomeHistory");
+let mbexpenseBtn = document.getElementById("mbexpenseHistory");
+let mbtotalMonthBtn = document.getElementById("mbmonthHistory");
+
+mbtotalMonthBtn.addEventListener("click", ()=>{
+    totalMonthSection.classList.remove("hidden");
+    totalMonthSection.classList.add("flex");
+    incomeTableSection.classList.add("hidden");
+    expenseTableSection.classList.add("hidden");
+    addIncomeBtn.classList.add("hidden");
+    localStorage.setItem('activeTab', 'totalMonth');
+    sidebar.classList.remove("StatusBox");
+
+});
+
+mbincomeBtn.addEventListener("click", ()=>{
+    incomeTableSection.classList.remove("hidden");
+    expenseTableSection.classList.add("hidden");
+    addIncomeBtn.classList.remove("hidden");
+    addExpenseBtn.classList.add("hidden");
+    totalMonthSection.classList.add("hidden");
+    localStorage.setItem('activeTab', 'income');
+    sidebar.classList.remove("StatusBox");
+})
+mbexpenseBtn.addEventListener("click", ()=>{
+    expenseTableSection.classList.remove("hidden");
+    incomeTableSection.classList.add("hidden");
+    totalMonthSection.classList.add("hidden");
+    addExpenseBtn.classList.remove("hidden");
+    addIncomeBtn.classList.add("hidden");
+    localStorage.setItem('activeTab', 'expense');
+    sidebar.classList.remove("StatusBox");
+});
+
+
 
 // JS code to handle the form submission for income
 
@@ -547,6 +576,8 @@ document.getElementById("closeDetails").addEventListener("click", ()=>{
 
 //Calculator JS Code
 //Take Buttons Vlue
+
+
 function takeValue(value){
     document.getElementById('display').value += value;  
 }
@@ -591,19 +622,21 @@ function shoeSci() {
     });
 }
 
-let openCalcBtn =  document.querySelector("#CalculatorOpen");
+let openCalcBtn =  document.querySelector("#CalculatorBtn");
 let closeCalcBtn = document.querySelector("#CalculatorClose");
 let calcBody =  document.querySelector(".calculator");
 
 openCalcBtn.addEventListener("click", ()=>{
-    calcBody.classList.add("fixed");
-    calcBody.classList.remove("hidden")
+    calcBody.classList.toggle("hidden");
+    calcBody.classList.toggle("fixed")
 });
 
 closeCalcBtn.addEventListener("click", ()=>{
     calcBody.classList.add("hidden");
-    calcBody.classList.remove("fixed")
+    calcBody.classList.remove("fixed");
     clearDisplay()
 });
+
+
 
 //---------------------------

@@ -14,32 +14,33 @@
 <body>
     <header class="flex items-center justify-around p-4 bg-gray-800 text-white  shadow-md gap-4">
         <div class="div1 flex gap-2 items-center justify-center">
-            <button
+            <!-- <button
             class="md:hidden text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
-            id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+            id="menuToggle"><i class="fa-solid fa-bars"></i></button> -->
         <div>
             <h2 class="hidden md:block">Smart Expense Tracker</h2>
             <h2 class="md:hidden">SET</h2>
         </div> 
         </div>
 <div class="div2">
-    <div class="clock flex flex-col md:flex-row items-center gap-4">
+    <div class="clock flex flex-col md:flex-row items-center md:gap-4">
             <div><i class="fa-solid fa-calendar-days"></i><span id="myDate"></span> </div>
             <div><i class="fa-regular fa-clock"></i> <span id="myClock"></span></div>
         </div>
 </div>
        <div class="div3 flex gap-2 items-center justify-center">               
         <div class="user">Omar Faruque</div>
-        <button
-            class=" text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
-            id="CalculatorOpen"><i class="fa-solid fa-calculator"></i></button>
         <div>
+            <button
+            class=" fixed top-1 right-2 z-64 text-gray-700 text-2xl bg-amber-50 p-2 rounded-full border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
+            id="CalculatorBtn"><i class="fa-solid fa-calculator"></i></button>
        </div>
+
  
     </header>
     <sidebar></sidebar>
     <main>
-        <section class=" z-50 hidden my-auto md:grid md:grid-cols-3 gap-4 p-4" id="statusSection">
+        <section class=" hidden md:block z-50  my-auto md:grid md:grid-cols-3 gap-4 p-4" id="statusSection">
             <div
                 class="TotalMonth my-4 md:my-auto  flex flex-col items-center justify-center glass-card  border border-gray-600 rounded-md p-4">
                 <h2 class="text-xl font-semibold text-center w-full text-gray-700">Total Month</h2>
@@ -67,6 +68,19 @@
                     id="incomeHistory">Total Income</button>
             </div>
         </section>
+
+              <div class="mobileBtns block md:hidden flex gap-3 ">
+          <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-blue-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="mbmonthHistory">Total Month</button>
+                     <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-yellow-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="mbexpenseHistory">Total Expense</button>
+                    <button type="button"
+                    class="w-full m-4 p-2 rounded-xl bg-green-500 hover:bg-amber-50 hover:scale-105 transition-all duration-300 ease-in-out font-semibold"
+                    id="mbincomeHistory">Total Income</button>
+       </div>
+
 
         <!-- Expense History Modal -->
         <section
@@ -252,10 +266,11 @@
             <button onclick="takeValue('+')">+</button>
             <button onclick="takeValue('0')">0</button>
             <button onclick="takeValue('.')">.</button>
-            <button onclick="calculateResult()">=</button>
-            <button onclick="shoeHis()"><i class="fa-solid fa-clock-rotate-left"></i></button>
+            <button onclick="calculateResult()" style="grid-column-start: 3;
+    grid-column-end: 5;
+    width: auto;">=</button>
+            <!-- <button onclick="shoeHis()" id="CalHistory"><i class="fa-solid fa-clock-rotate-left"></i></button> -->
         </div>
-
         <button type="button"
             class="calCls bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 mt-4"
             id="CalculatorClose">Close</button>
