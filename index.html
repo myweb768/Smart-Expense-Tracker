@@ -14,9 +14,6 @@
 <body>
     <header class="flex items-center justify-around p-4 bg-gray-800 text-white  shadow-md gap-4">
         <div class="div1 flex gap-2 items-center justify-center">
-            <!-- <button
-            class="md:hidden text-gray-700 text-2xl bg-amber-50 p-2 rounded-md border border-white hover:bg-transparent hover:text-white transition-all duration-300 ease-in-out"
-            id="menuToggle"><i class="fa-solid fa-bars"></i></button> -->
         <div>
             <h2 class="hidden md:block">Smart Expense Tracker</h2>
             <h2 class="md:hidden">SET</h2>
@@ -156,9 +153,17 @@
         <!-- Total Month History Modal -->
         <section class="TotalMonthHistory p-4 flex flex-col justify-center items-center">
             <div
-                class="TotalCalc md:flex items-center justify-center glass-card border border-gray-600 rounded-md p-4 w-full mb-4">
-                <h2 class="text-md  font-semibold  text-center w-full text-gray-700">In <span
-                        id="CurrentYear">2026</span>:</h2>
+                class="TotalCalc flex flex-col md:flex-row items-center justify-center glass-card border border-gray-600 rounded-md p-4 w-full mb-4">
+                
+            <div class="flex items-center justify-center w-fit gap-2 my-4">
+               <label for="yearFilter" class="text-md  font-semibold  text-center w-full text-gray-700 inline-block">Year:</label>
+                 <select id="yearFilter" class="p-2 border border-gray-600 rounded-md bg-white text-gray-700 font-semibold focus:outline-none">
+                 <option value="Defult">Choose Year</option>
+                </select>
+            </div>
+
+                <!-- <h2 class="text-md  font-semibold  text-center w-full text-gray-700">In <span
+                        id="CurrentYear">2026</span>:</h2> -->
                 <h2 class="text-md  font-semibold  text-center w-full text-gray-700">Total Income: <span
                         id="totalIncomeTotal"></span></h2>
                 <h2 class="text-md font-semibold text-center w-full text-gray-700">Total Expense: <span

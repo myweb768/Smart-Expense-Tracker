@@ -640,3 +640,172 @@ closeCalcBtn.addEventListener("click", ()=>{
 
 
 //---------------------------
+
+
+// Add Year Seclator
+ 
+let year = [];
+
+expenses.forEach(item => {
+    if (item.date) {
+        const itemYear = item.date.split("-")[0]; 
+        if (!year.includes(itemYear)) {         
+            year.push(itemYear);
+        }
+    }
+});
+
+
+incomes.forEach(item => {
+    if (item.date) {
+        const itemYear = item.date.split("-")[0]; 
+        if (!year.includes(itemYear)) {          
+            year.push(itemYear);
+        }
+    }
+});
+
+
+year.sort((a, b) => b - a);
+
+console.log("Get Year:", year);
+
+let yearSelect = document.getElementById("yearFilter");
+
+if (yearSelect) {
+    year.forEach(singleYear => {
+
+        const option = document.createElement("option");
+        option.value = singleYear;  
+        option.textContent = singleYear; 
+        
+        if (singleYear === new Date().getFullYear().toString()) {
+            option.selected = true;
+        }
+
+        yearSelect.appendChild(option);
+    });
+}
+
+
+// Add Year Selection Functionality
+function filterMonthlyReportByYear() {
+    let yearSelect = document.getElementById("yearFilter");
+    if (!yearSelect) return;
+
+    const selectedYear = yearSelect.value;
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let isDefault = (selectedYear === "Defult");
+
+    let YearlyCalc = {
+        "January": {income: 0, expense: 0}, "February": {income: 0, expense: 0},
+        "March": {income: 0, expense: 0}, "April": {income: 0, expense: 0},
+        "May": {income: 0, expense: 0}, "June": {income: 0, expense: 0},
+        "July": {income: 0, expense: 0}, "August": {income: 0, expense: 0},
+        "September": {income: 0, expense: 0}, "October": {income: 0, expense: 0},
+        "November": {income: 0, expense: 0}, "December": {income: 0, expense: 0} 
+    };
+
+    incomes.forEach(income => {
+        if(income.date) {
+            const incomeYear = income.date.split("-")[0];
+            if(isDefault || incomeYear === selectedYear) {
+                const monthIndex = parseInt(income.date.split("-")[1]) - 1; 
+                const monthName = monthNames[monthIndex];
+                if(YearlyCalc[monthName]) YearlyCalc[monthName].income += income.amount;
+            }
+        }
+    });
+
+    expenses.forEach(expense => {
+        if(expense.date) {
+            const expenseYear = expense.date.split("-")[0];
+            if(isDefault || expenseYear === selectedYear) {
+                const monthIndex = parseInt(expense.date.split("-")[1]) - 1; 
+                const monthName = monthNames[monthIndex];
+                if(YearlyCalc[monthName]) YearlyCalc[monthName].expense += expense.amount;
+            }
+        }
+    }); 
+
+    totalMonthTableBody.innerHTML = "";
+    for (const month in YearlyCalc) {
+        const data = YearlyCalc[month];
+        if (data.income === 0 && data.expense === 0) continue; 
+
+        const netSaving = data.income - data.expense;
+        const savingColor = netSaving < 0 ? "text-red-600" : "text-green-600";
+
+        const tr = document.createElement("tr");
+        tr.className = "border-b hover:bg-gray-100 transition duration-150";
+        tr.innerHTML = `
+            <td class="p-2 text-center text-gray-800 font-medium">${month}</td>
+            <td class="p-2 text-center text-green-600 font-semibold">৳${data.income}</td>
+            <td class="p-2 text-center text-red-600 font-semibold">৳${data.expense}</td>
+            <td class="p-2 text-center ${savingColor} font-semibold">৳${netSaving}</td>
+            <td class="p-2 text-center">
+                <button class=" px-4 py-2 my-1 border border-gray-500 bg-white hover:bg-green-500 transition-all duration-300 ease-in-out rounded-xl" data-month="${month}">
+                    <i class="fa-regular fa-circle-question"></i>
+                </button>
+            </td>
+        `;
+        totalMonthTableBody.appendChild(tr);
+    }
+}
+
+totalMonthTableBody.addEventListener("click", (e) => {
+    let detailsBtn = e.target.closest("button[data-month]");
+    if(!detailsBtn) return;
+
+    let detailsModal = document.getElementById("detailsSection");
+    let detailsList = document.getElementById("detailsTableBody");
+    let yearSelect = document.getElementById("yearFilter");
+    const selectedYear = yearSelect ? yearSelect.value : "Defult";
+
+    const month = detailsBtn.getAttribute("data-month");
+    detailsList.innerHTML = "";
+    
+    const monthIndex = new Date(`${month} 1, 2024`).getMonth() + 1; 
+    let filteredIncomes = incomes.filter(income => {
+        if(!income.date) return false;
+        const incomeMonth = parseInt(income.date.split("-")[1]);
+        const incomeYear = income.date.split("-")[0];
+        return incomeMonth === monthIndex && (selectedYear === "Defult" || incomeYear === selectedYear);
+    }).map(income => ({...income, type: "income"}));
+
+    let filteredExpenses = expenses.filter(expense => {
+        if(!expense.date) return false;
+        const expenseMonth = parseInt(expense.date.split("-")[1]);
+        const expenseYear = expense.date.split("-")[0];
+        return expenseMonth === monthIndex && (selectedYear === "Defult" || expenseYear === selectedYear);
+    }).map(expense => ({...expense, type: "expense"}));
+
+    [...filteredIncomes, ...filteredExpenses].forEach(item => {
+        const tr = document.createElement("tr");
+        tr.className = "border-b hover:bg-gray-100 transition duration-150";
+        tr.innerHTML = `
+            <td class="p-2 text-center text-gray-800">${item.date}</td>
+            <td class="p-2 text-center text-green-600 font-semibold">${item.type === "income" ? `৳${item.amount}` : "-"}</td>
+            <td class="p-2 text-center text-red-600 font-semibold">${item.type === "expense" ? `৳${item.amount}` : "-"}</td>
+            <td class="p-2 text-center text-gray-700">${item.title}</td>
+        `;
+        detailsList.appendChild(tr);
+    });
+
+    detailsModal.classList.remove("hidden");
+    detailsModal.classList.add("flex");
+});
+
+
+if (yearSelect) {
+    yearSelect.addEventListener("change", filterMonthlyReportByYear);
+}
+
+
+renderExpenses();
+renderIncomes();
+updateDashboard();
+filterMonthlyReportByYear(); 
+
+//---------------------------------
